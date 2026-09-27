@@ -1,6 +1,4 @@
 import { Activity, ClipboardList, HeartPulse, TrendingUp } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
-import type { BPReading } from '../types';
 import {
   calculateAverageDiastolic,
   calculateAverageSystolic,
@@ -8,26 +6,13 @@ import {
   getLatestReading,
 } from '../utils/bpCalculations';
 
-interface Props {
-  t: Translations;
-  periodReadings: BPReading[];
-}
-
-interface CardDef {
-  icon: typeof Activity;
-  label: string;
-  sub: string;
-  value: string;
-  accent: string;
-}
-
-export default function SummaryCards({ t, periodReadings }: Props) {
+export default function SummaryCards({ t, periodReadings }) {
   const latest = getLatestReading(periodReadings);
   const highest = getHighestReading(periodReadings);
   const avgSys = calculateAverageSystolic(periodReadings);
   const avgDia = calculateAverageDiastolic(periodReadings);
 
-  const cards: CardDef[] = [
+  const cards = [
     {
       icon: HeartPulse,
       label: t.dashboard.latestReading,

@@ -1,8 +1,6 @@
-import type { BPReading } from '../types';
-
 // Deterministic pseudo-random generator so the "realistic" dataset is stable
 // across re-renders instead of reshuffling every time React re-runs this module.
-function mulberry32(seed: number) {
+function mulberry32(seed) {
   let a = seed;
   return function () {
     a |= 0;
@@ -15,11 +13,11 @@ function mulberry32(seed: number) {
 
 const rand = mulberry32(19700101);
 
-function clamp(value: number, min: number, max: number): number {
+function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
 
-function pad(n: number): string {
+function pad(n) {
   return n.toString().padStart(2, '0');
 }
 
@@ -28,8 +26,8 @@ function pad(n: number): string {
  * One or two readings per day (morning always, occasional evening reading),
  * with a slow underlying drift plus daily noise so charts show real movement.
  */
-export function generateMockReadings(days = 60): BPReading[] {
-  const readings: BPReading[] = [];
+export function generateMockReadings(days = 60) {
+  const readings = [];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -89,4 +87,4 @@ export function generateMockReadings(days = 60): BPReading[] {
   return readings;
 }
 
-export const mockReadings: BPReading[] = generateMockReadings(60);
+export const mockReadings = generateMockReadings(60);

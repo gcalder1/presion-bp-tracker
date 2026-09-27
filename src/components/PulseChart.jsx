@@ -1,16 +1,8 @@
 import { HeartPulse } from 'lucide-react';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import type { Translations } from '../i18n/translations';
-import type { BPReading, Language } from '../types';
 import { calculateAveragePulse, formatReadingDate, sortByDateAsc } from '../utils/bpCalculations';
 
-interface Props {
-  t: Translations;
-  language: Language;
-  readings: BPReading[];
-}
-
-export default function PulseChart({ t, language, readings }: Props) {
+export default function PulseChart({ t, language, readings }) {
   const sorted = sortByDateAsc(readings);
   const data = sorted.map((r) => ({ ...r, dateLabel: formatReadingDate(r.date, language) }));
   const avgPulse = calculateAveragePulse(readings);

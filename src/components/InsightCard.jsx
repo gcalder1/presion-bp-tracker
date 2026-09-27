@@ -1,6 +1,4 @@
 import { Lightbulb } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
-import type { BPReading, PeriodFilter } from '../types';
 import {
   calculateAverageDiastolic,
   calculateAverageSystolic,
@@ -8,14 +6,7 @@ import {
   getPreviousPeriod,
 } from '../utils/bpCalculations';
 
-interface Props {
-  t: Translations;
-  allReadings: BPReading[];
-  periodReadings: BPReading[];
-  period: PeriodFilter;
-}
-
-export default function InsightCard({ t, allReadings, periodReadings, period }: Props) {
+export default function InsightCard({ t, allReadings, periodReadings, period }) {
   const avgSys = calculateAverageSystolic(periodReadings);
   const avgDia = calculateAverageDiastolic(periodReadings);
   const previous = getPreviousPeriod(allReadings, period);

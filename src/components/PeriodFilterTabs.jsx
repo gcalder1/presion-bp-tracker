@@ -1,19 +1,10 @@
-import type { Translations } from '../i18n/translations';
-import type { PeriodFilter } from '../types';
-
-interface Props {
-  t: Translations;
-  value: PeriodFilter;
-  onChange: (value: PeriodFilter) => void;
-}
-
-const options: { value: PeriodFilter; labelKey: 'filter7' | 'filter30' | 'filter60' }[] = [
+const options = [
   { value: 7, labelKey: 'filter7' },
   { value: 30, labelKey: 'filter30' },
   { value: 60, labelKey: 'filter60' },
 ];
 
-export default function PeriodFilterTabs({ t, value, onChange }: Props) {
+export default function PeriodFilterTabs({ t, value, onChange }) {
   return (
     <div role="group" aria-label="Date range" className="inline-flex rounded-full border-2 border-ink-200 bg-ink-50 p-1">
       {options.map((opt) => (

@@ -1,12 +1,5 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
-import type { Translations } from '../i18n/translations';
-import type { BPReading } from '../types';
 import { getReadingDistribution } from '../utils/bpCalculations';
-
-interface Props {
-  t: Translations;
-  readings: BPReading[];
-}
 
 const COLORS = {
   lower: 'var(--color-accent-blue)',
@@ -14,7 +7,7 @@ const COLORS = {
   higher: 'var(--color-accent-amber)',
 };
 
-export default function BPDistribution({ t, readings }: Props) {
+export default function BPDistribution({ t, readings }) {
   const dist = getReadingDistribution(readings);
   const total = dist.lower + dist.typical + dist.higher;
 

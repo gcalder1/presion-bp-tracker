@@ -1,12 +1,4 @@
-import type { Language } from '../types';
-
-interface Props {
-  language: Language;
-  onChange: (lang: Language) => void;
-  compact?: boolean;
-}
-
-export default function LanguageToggle({ language, onChange, compact = false }: Props) {
+export default function LanguageToggle({ language, onChange, compact = false }) {
   return (
     <div
       role="group"

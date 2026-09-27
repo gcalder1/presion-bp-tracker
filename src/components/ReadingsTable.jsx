@@ -1,16 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
-import type { BPReading, Language } from '../types';
 import { formatReadingDate, formatReadingTime, getRecentReadings, sortByDateDesc } from '../utils/bpCalculations';
 
-interface Props {
-  t: Translations;
-  language: Language;
-  readings: BPReading[];
-}
-
-function Row({ reading, t, language }: { reading: BPReading; t: Translations; language: Language }) {
+function Row({ reading, t, language }) {
   return (
     <tr className="border-b border-ink-100 last:border-0">
       <td className="whitespace-nowrap px-4 py-3 font-medium text-ink-800">{formatReadingDate(reading.date, language)}</td>
@@ -24,9 +16,9 @@ function Row({ reading, t, language }: { reading: BPReading; t: Translations; la
   );
 }
 
-export default function ReadingsTable({ t, language, readings }: Props) {
+export default function ReadingsTable({ t, language, readings }) {
   const [showAll, setShowAll] = useState(false);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef(null);
   const recent = getRecentReadings(readings, 9);
   const all = sortByDateDesc(readings);
 
@@ -35,7 +27,7 @@ export default function ReadingsTable({ t, language, readings }: Props) {
   }, [showAll]);
 
   useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
+    function onKeyDown(e) {
       if (e.key === 'Escape') setShowAll(false);
     }
     if (showAll) {

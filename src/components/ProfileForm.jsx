@@ -1,31 +1,20 @@
-import { useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import { ShieldCheck } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
-import type { UserProfile } from '../types';
-
-interface Props {
-  t: Translations;
-  initialProfile: UserProfile;
-  onSubmit: (profile: UserProfile) => void;
-  onBack: () => void;
-}
-
-type FieldErrors = Partial<Record<keyof UserProfile, string>>;
 
 const labelClass = 'block text-base font-semibold text-ink-800';
 const inputClass =
   'mt-2 w-full rounded-xl border-2 border-ink-200 bg-surface px-4 py-3 text-lg text-ink-900 placeholder:text-ink-300 focus:border-brand-500';
 
-export default function ProfileForm({ t, initialProfile, onSubmit, onBack }: Props) {
-  const [profile, setProfile] = useState<UserProfile>(initialProfile);
-  const [errors, setErrors] = useState<FieldErrors>({});
+export default function ProfileForm({ t, initialProfile, onSubmit, onBack }) {
+  const [profile, setProfile] = useState(initialProfile);
+  const [errors, setErrors] = useState({});
 
-  function update<K extends keyof UserProfile>(key: K, value: UserProfile[K]) {
+  function update(key, value) {
     setProfile((p) => ({ ...p, [key]: value }));
   }
 
-  function validate(): FieldErrors {
-    const next: FieldErrors = {};
+  function validate() {
+    const next = {};
     const ageNum = Number(profile.age);
     if (!profile.age.trim() || Number.isNaN(ageNum) || ageNum < 1 || ageNum > 120) {
       next.age = t.profile.errorAge;
@@ -37,7 +26,7 @@ export default function ProfileForm({ t, initialProfile, onSubmit, onBack }: Pro
     return next;
   }
 
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e) {
     e.preventDefault();
     const next = validate();
     setErrors(next);
@@ -99,7 +88,7 @@ export default function ProfileForm({ t, initialProfile, onSubmit, onBack }: Pro
                   <select
                     id="field-sex"
                     value={profile.sex}
-                    onChange={(e) => update('sex', e.target.value as UserProfile['sex'])}
+                    onChange={(e) => update('sex', e.target.value)}
                     className={inputClass}
                     aria-invalid={Boolean(errors.sex)}
                     aria-describedby={errors.sex ? 'err-sex' : undefined}

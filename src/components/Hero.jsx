@@ -1,13 +1,6 @@
 import { Bluetooth, HeartPulse, MessageCircle, Sparkles } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
 
-interface Props {
-  t: Translations;
-  onGetStarted: () => void;
-  onSeeHowItWorks: () => void;
-}
-
-export default function Hero({ t, onGetStarted, onSeeHowItWorks }: Props) {
+export default function Hero({ t, onGetStarted, onSeeHowItWorks }) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-brand-50 to-ink-50 py-16 sm:py-24">
       <div className="container-page grid items-center gap-12 lg:grid-cols-2">

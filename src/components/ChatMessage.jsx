@@ -1,11 +1,6 @@
 import { Bot, User } from 'lucide-react';
-import type { ChatMessage as ChatMessageType } from '../types';
 
-interface Props {
-  message: ChatMessageType;
-}
-
-export default function ChatMessage({ message }: Props) {
+export default function ChatMessage({ message }) {
   const isUser = message.role === 'user';
 
   return (

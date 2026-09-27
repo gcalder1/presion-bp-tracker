@@ -1,15 +1,6 @@
 import { Moon, Sun } from 'lucide-react';
-import type { Theme } from '../hooks/useTheme';
-import type { Translations } from '../i18n/translations';
 
-interface Props {
-  t: Translations;
-  theme: Theme;
-  onToggle: () => void;
-  compact?: boolean;
-}
-
-export default function ThemeToggle({ t, theme, onToggle, compact = false }: Props) {
+export default function ThemeToggle({ t, theme, onToggle, compact = false }) {
   const isDark = theme === 'dark';
   const size = compact ? 'h-10 w-10' : 'h-12 w-12';
 

@@ -1,15 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export type Theme = 'light' | 'dark';
-
 const STORAGE_KEY = 'presion-theme';
 
-function getSystemPreference(): Theme {
+function getSystemPreference() {
   if (typeof window === 'undefined' || !window.matchMedia) return 'light';
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-function getInitialTheme(): Theme {
+function getInitialTheme() {
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === 'light' || stored === 'dark') return stored;
@@ -25,8 +23,8 @@ function getInitialTheme(): Theme {
  * `dark` class on <html> in sync (index.html applies it once on load too, so
  * there's no flash of the wrong theme before React hydrates).
  */
-export function useTheme(): [Theme, () => void] {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+export function useTheme() {
+  const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');

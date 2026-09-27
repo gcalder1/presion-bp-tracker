@@ -1,24 +1,14 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Bot, Send } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
-import type { BPReading, Language, PeriodFilter, UserProfile } from '../types';
 import { matchIntent, getResponseByIntentId } from '../utils/chatResponses';
 import ChatMessage from './ChatMessage';
 
-interface Props {
-  t: Translations;
-  language: Language;
-  allReadings: BPReading[];
-  period: PeriodFilter;
-  profile: UserProfile;
-}
-
-type LogEntry =
-  | { id: string; role: 'assistant'; kind: 'greeting' }
-  | { id: string; role: 'assistant'; kind: 'fallback' }
-  | { id: string; role: 'assistant'; kind: 'response'; intentId: string }
-  | { id: string; role: 'user'; kind: 'suggestion'; suggestionIndex: number }
-  | { id: string; role: 'user'; kind: 'freeform'; rawText: string };
+// Log entries are one of:
+//   { id, role: 'assistant', kind: 'greeting' }
+//   { id, role: 'assistant', kind: 'fallback' }
+//   { id, role: 'assistant', kind: 'response', intentId }
+//   { id, role: 'user', kind: 'suggestion', suggestionIndex }
+//   { id, role: 'user', kind: 'freeform', rawText }
 
 let idCounter = 0;
 function nextId() {
@@ -26,12 +16,12 @@ function nextId() {
   return `msg-${idCounter}`;
 }
 
-export default function AIChat({ t, language, allReadings, period, profile }: Props) {
-  const [log, setLog] = useState<LogEntry[]>([{ id: nextId(), role: 'assistant', kind: 'greeting' }]);
+export default function AIChat({ t, language, allReadings, period, profile }) {
+  const [log, setLog] = useState([{ id: nextId(), role: 'assistant', kind: 'greeting' }]);
   const [typing, setTyping] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollRef = useRef(null);
+  const typingTimeoutRef = useRef(null);
 
   const ctx = { allReadings, period, profile, language };
 
@@ -45,7 +35,7 @@ export default function AIChat({ t, language, allReadings, period, profile }: Pr
     };
   }, []);
 
-  function renderText(entry: LogEntry): string {
+  function renderText(entry) {
     switch (entry.kind) {
       case 'greeting':
         return t.chat.greeting;
@@ -62,7 +52,7 @@ export default function AIChat({ t, language, allReadings, period, profile }: Pr
     }
   }
 
-  function sendUserEntry(userEntry: LogEntry, questionText: string) {
+  function sendUserEntry(userEntry, questionText) {
     setLog((prev) => [...prev, userEntry]);
     setTyping(true);
 
@@ -80,12 +70,12 @@ export default function AIChat({ t, language, allReadings, period, profile }: Pr
     }, delay);
   }
 
-  function handleSuggestionClick(index: number) {
+  function handleSuggestionClick(index) {
     if (typing) return;
     sendUserEntry({ id: nextId(), role: 'user', kind: 'suggestion', suggestionIndex: index }, t.chat.suggestions[index]);
   }
 
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e) {
     e.preventDefault();
     const trimmed = inputValue.trim();
     if (!trimmed || typing) return;
