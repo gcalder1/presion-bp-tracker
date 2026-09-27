@@ -1,4 +1,3 @@
-import type { BPReading, Language, PeriodFilter, UserProfile } from '../types';
 import {
   calculateAverageDiastolic,
   calculateAveragePulse,
@@ -11,20 +10,7 @@ import {
   formatReadingDate,
 } from './bpCalculations';
 
-interface ChatContext {
-  allReadings: BPReading[];
-  period: PeriodFilter;
-  profile: UserProfile;
-  language: Language;
-}
-
-interface Intent {
-  id: string;
-  keywords: { en: string[]; es: string[] };
-  respond: (ctx: ChatContext) => string;
-}
-
-const intents: Intent[] = [
+const intents = [
   {
     id: 'average',
     keywords: {
@@ -151,14 +137,14 @@ const intents: Intent[] = [
   },
 ];
 
-function normalize(text: string): string {
+function normalize(text) {
   return text
     .toLowerCase()
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, ''); // strip accents for looser matching
 }
 
-export function matchIntent(userText: string, language: Language): Intent | null {
+export function matchIntent(userText, language) {
   const normalized = normalize(userText);
   for (const intent of intents) {
     const keywords = language === 'es' ? intent.keywords.es : intent.keywords.en;
@@ -172,7 +158,7 @@ export function matchIntent(userText: string, language: Language): Intent | null
   return null;
 }
 
-export function getChatResponse(userText: string, ctx: ChatContext): string {
+export function getChatResponse(userText, ctx) {
   const intent = matchIntent(userText, ctx.language);
   if (intent) return intent.respond(ctx);
   return ctx.language === 'es'
@@ -185,7 +171,7 @@ export function getChatResponse(userText: string, ctx: ChatContext): string {
  * used so scripted assistant replies re-localize when the language toggle flips,
  * without needing to "translate" already-generated text.
  */
-export function getResponseByIntentId(intentId: string, ctx: ChatContext): string | null {
+export function getResponseByIntentId(intentId, ctx) {
   const intent = intents.find((i) => i.id === intentId);
   if (!intent) return null;
   return intent.respond(ctx);

@@ -1,36 +1,9 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import type { Translations } from '../i18n/translations';
-import type { BPReading, Language } from '../types';
 import { formatReadingDate, formatReadingTime, sortByDateAsc } from '../utils/bpCalculations';
 
-interface Props {
-  t: Translations;
-  language: Language;
-  readings: BPReading[];
-}
-
-interface TooltipPayloadItem {
-  dataKey: string;
-  value: number;
-  color: string;
-  payload: BPReading & { dateLabel: string };
-}
-
-function CustomTooltip({
-  active,
-  payload,
-  label,
-  t,
-  language,
-}: {
-  active?: boolean;
-  payload?: TooltipPayloadItem[];
-  label?: string;
-  t: Translations;
-  language: Language;
-}) {
+function CustomTooltip({ active, payload, label, t, language }) {
   if (!active || !payload || payload.length === 0) return null;
-  const point = payload[0]?.payload as (BPReading & { dateLabel: string }) | undefined;
+  const point = payload[0]?.payload;
   return (
     <div className="rounded-xl border border-ink-100 bg-surface p-3 text-sm shadow-lg">
       <p className="font-bold text-ink-900">{label}</p>
@@ -49,7 +22,7 @@ function CustomTooltip({
   );
 }
 
-export default function BPTrendChart({ t, language, readings }: Props) {
+export default function BPTrendChart({ t, language, readings }) {
   const sorted = sortByDateAsc(readings);
   const data = sorted.map((r) => ({
     ...r,

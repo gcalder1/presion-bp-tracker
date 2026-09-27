@@ -1,7 +1,5 @@
 import { useMemo, useState } from 'react';
 import { Pencil, ShieldAlert } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
-import type { BPReading, Language, PeriodFilter, UserProfile } from '../types';
 import { getReadingsForPeriod } from '../utils/bpCalculations';
 import SummaryCards from './SummaryCards';
 import PeriodFilterTabs from './PeriodFilterTabs';
@@ -12,23 +10,15 @@ import ReadingsTable from './ReadingsTable';
 import InsightCard from './InsightCard';
 import AIChat from './AIChat';
 
-interface Props {
-  t: Translations;
-  language: Language;
-  profile: UserProfile;
-  allReadings: BPReading[];
-  onEditProfile: () => void;
-}
-
-function getGreetingKey(): 'greetingMorning' | 'greetingAfternoon' | 'greetingEvening' {
+function getGreetingKey() {
   const hour = new Date().getHours();
   if (hour < 12) return 'greetingMorning';
   if (hour < 18) return 'greetingAfternoon';
   return 'greetingEvening';
 }
 
-export default function Dashboard({ t, language, profile, allReadings, onEditProfile }: Props) {
-  const [period, setPeriod] = useState<PeriodFilter>(30);
+export default function Dashboard({ t, language, profile, allReadings, onEditProfile }) {
+  const [period, setPeriod] = useState(30);
   const periodReadings = useMemo(() => getReadingsForPeriod(allReadings, period), [allReadings, period]);
   const greetingKey = useMemo(getGreetingKey, []);
 

@@ -1,13 +1,8 @@
 import { ArrowDown, MessageSquareHeart, Radio, Sparkles } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
 
 const icons = [Radio, Sparkles, MessageSquareHeart];
 
-interface Props {
-  t: Translations;
-}
-
-export default function SolutionSection({ t }: Props) {
+export default function SolutionSection({ t }) {
   return (
     <section id="how-it-works" className="scroll-mt-20 bg-ink-50 py-16 sm:py-20">
       <div className="container-page">

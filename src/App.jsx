@@ -9,9 +9,8 @@ import Dashboard from './components/Dashboard';
 import Footer from './components/Footer';
 import { translations } from './i18n/translations';
 import { mockReadings } from './data/mockReadings';
-import type { AppView, Language, UserProfile } from './types';
 
-const emptyProfile: UserProfile = {
+const emptyProfile = {
   age: '',
   sex: '',
   heightCm: '',
@@ -21,14 +20,14 @@ const emptyProfile: UserProfile = {
 };
 
 export default function App() {
-  const [language, setLanguage] = useState<Language>('en');
-  const [view, setView] = useState<AppView>('landing');
-  const [profile, setProfile] = useState<UserProfile>(emptyProfile);
+  const [language, setLanguage] = useState('en');
+  const [view, setView] = useState('landing');
+  const [profile, setProfile] = useState(emptyProfile);
   const [theme, toggleTheme] = useTheme();
 
   const t = translations[language];
 
-  function goTo(next: AppView) {
+  function goTo(next) {
     setView(next);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -44,7 +43,7 @@ export default function App() {
     document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  function handleProfileSubmit(nextProfile: UserProfile) {
+  function handleProfileSubmit(nextProfile) {
     setProfile(nextProfile);
     goTo('dashboard');
   }

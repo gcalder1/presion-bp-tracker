@@ -1,13 +1,8 @@
 import { AlertCircle, FileQuestion, PencilLine, Search, TrendingDown } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
 
 const icons = [PencilLine, AlertCircle, FileQuestion, Search, TrendingDown];
 
-interface Props {
-  t: Translations;
-}
-
-export default function ProblemSection({ t }: Props) {
+export default function ProblemSection({ t }) {
   return (
     <section className="bg-surface py-16 sm:py-20">
       <div className="container-page">

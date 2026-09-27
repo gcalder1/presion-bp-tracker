@@ -1,131 +1,4 @@
-export interface Translations {
-  nav: {
-    productName: string;
-    howItWorks: string;
-    dashboard: string;
-    about: string;
-    getStarted: string;
-    switchToDark: string;
-    switchToLight: string;
-  };
-  hero: {
-    titleLine1: string;
-    titleLine2: string;
-    subtitle: string;
-    supporting: string;
-    ctaPrimary: string;
-    ctaSecondary: string;
-    mockupBadge: string;
-    mockupLatest: string;
-    mockupChatPreview: string;
-    mockupChatReply: string;
-  };
-  problem: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    points: { title: string; desc: string }[];
-  };
-  solution: {
-    eyebrow: string;
-    title: string;
-    steps: { number: string; title: string; desc: string }[];
-  };
-  profile: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
-    sectionPersonal: string;
-    age: string;
-    agePlaceholder: string;
-    sex: string;
-    sexPlaceholder: string;
-    sexOptions: { female: string; male: string; other: string };
-    sectionBody: string;
-    height: string;
-    heightPlaceholder: string;
-    weight: string;
-    weightPlaceholder: string;
-    sectionMeds: string;
-    medications: string;
-    medicationsPlaceholder: string;
-    sectionGoal: string;
-    goal: string;
-    goalPlaceholder: string;
-    requiredNote: string;
-    errorRequired: string;
-    errorAge: string;
-    submit: string;
-    back: string;
-  };
-  dashboard: {
-    demoNotice: string;
-    greetingMorning: string;
-    greetingAfternoon: string;
-    greetingEvening: string;
-    subtitle: string;
-    profileSummary: (age: string) => string;
-    latestReading: string;
-    latestReadingSub: string;
-    bpm: string;
-    averageBP: string;
-    averageBPSub: string;
-    highestReading: string;
-    highestReadingSub: string;
-    readingsRecorded: string;
-    readingsRecordedSub: string;
-    trendChartTitle: string;
-    trendChartSub: string;
-    pulseChartTitle: string;
-    pulseChartSub: string;
-    averagePulse: string;
-    distributionTitle: string;
-    distributionSub: string;
-    distributionLower: string;
-    distributionTypical: string;
-    distributionHigher: string;
-    filter7: string;
-    filter30: string;
-    filter60: string;
-    systolic: string;
-    diastolic: string;
-    pulse: string;
-    date: string;
-    time: string;
-    tableTitle: string;
-    tableSub: string;
-    viewAll: string;
-    closeModal: string;
-    allReadingsTitle: string;
-    insightTitle: string;
-    insightWhatChanged: string;
-    insightBody: (avg: string) => string;
-    insightChangeUp: (delta: number) => string;
-    insightChangeDown: (delta: number) => string;
-    insightChangeFlat: string;
-    disclaimer: string;
-    editProfile: string;
-  };
-  chat: {
-    title: string;
-    subtitle: string;
-    languageIndicator: string;
-    inputPlaceholder: string;
-    send: string;
-    suggestions: string[];
-    greeting: string;
-    fallback: string;
-  };
-  footer: {
-    about: string;
-    rights: string;
-  };
-  common: {
-    years: string;
-  };
-}
-
-export const translations: Record<'en' | 'es', Translations> = {
+export const translations = {
   en: {
     // Navigation
     nav: {
@@ -224,7 +97,7 @@ export const translations: Record<'en' | 'es', Translations> = {
       greetingAfternoon: 'Good afternoon',
       greetingEvening: 'Good evening',
       subtitle: 'Here’s how your blood pressure has been trending.',
-      profileSummary: (age: string) => `Showing insights personalized for a ${age}-year-old profile.`,
+      profileSummary: (age) => `Showing insights personalized for a ${age}-year-old profile.`,
       latestReading: 'Latest Reading',
       latestReadingSub: 'Pulse',
       bpm: 'bpm',
@@ -259,11 +132,11 @@ export const translations: Record<'en' | 'es', Translations> = {
       allReadingsTitle: 'All Readings',
       insightTitle: 'Your readings at a glance',
       insightWhatChanged: 'What changed?',
-      insightBody: (avg: string) =>
+      insightBody: (avg) =>
         `Your recent readings have been fairly consistent. Your average reading over the selected period is ${avg}.`,
-      insightChangeUp: (delta: number) =>
+      insightChangeUp: (delta) =>
         `Your systolic readings have been about ${delta} points higher during the last two weeks compared with the previous period.`,
-      insightChangeDown: (delta: number) =>
+      insightChangeDown: (delta) =>
         `Your systolic readings have been about ${Math.abs(delta)} points lower during the last two weeks compared with the previous period.`,
       insightChangeFlat: 'Your readings have stayed about the same compared with the previous period.',
       disclaimer:
@@ -390,7 +263,7 @@ export const translations: Record<'en' | 'es', Translations> = {
       greetingAfternoon: 'Buenas tardes',
       greetingEvening: 'Buenas noches',
       subtitle: 'Así ha estado la tendencia de tu presión arterial.',
-      profileSummary: (age: string) => `Mostrando información personalizada para un perfil de ${age} años.`,
+      profileSummary: (age) => `Mostrando información personalizada para un perfil de ${age} años.`,
       latestReading: 'Última Lectura',
       latestReadingSub: 'Pulso',
       bpm: 'lpm',
@@ -425,11 +298,11 @@ export const translations: Record<'en' | 'es', Translations> = {
       allReadingsTitle: 'Todas las Lecturas',
       insightTitle: 'Tus lecturas de un vistazo',
       insightWhatChanged: '¿Qué cambió?',
-      insightBody: (avg: string) =>
+      insightBody: (avg) =>
         `Tus lecturas recientes han sido bastante consistentes. Tu lectura promedio en el período seleccionado es ${avg}.`,
-      insightChangeUp: (delta: number) =>
+      insightChangeUp: (delta) =>
         `Tus lecturas sistólicas han estado alrededor de ${delta} puntos más altas en las últimas dos semanas comparadas con el período anterior.`,
-      insightChangeDown: (delta: number) =>
+      insightChangeDown: (delta) =>
         `Tus lecturas sistólicas han estado alrededor de ${Math.abs(delta)} puntos más bajas en las últimas dos semanas comparadas con el período anterior.`,
       insightChangeFlat: 'Tus lecturas se han mantenido similares en comparación con el período anterior.',
       disclaimer:

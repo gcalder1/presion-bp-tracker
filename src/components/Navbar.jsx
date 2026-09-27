@@ -1,21 +1,7 @@
 import { Activity, Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import type { Theme } from '../hooks/useTheme';
-import type { AppView, Language } from '../types';
-import type { Translations } from '../i18n/translations';
 import LanguageToggle from './LanguageToggle';
 import ThemeToggle from './ThemeToggle';
-
-interface Props {
-  t: Translations;
-  language: Language;
-  onLanguageChange: (lang: Language) => void;
-  theme: Theme;
-  onToggleTheme: () => void;
-  view: AppView;
-  onNavigate: (view: AppView) => void;
-  onScrollToHowItWorks: () => void;
-}
 
 export default function Navbar({
   t,
@@ -26,7 +12,7 @@ export default function Navbar({
   view,
   onNavigate,
   onScrollToHowItWorks,
-}: Props) {
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (

@@ -1,11 +1,6 @@
 import { Activity } from 'lucide-react';
-import type { Translations } from '../i18n/translations';
 
-interface Props {
-  t: Translations;
-}
-
-export default function Footer({ t }: Props) {
+export default function Footer({ t }) {
   return (
     <footer id="about" className="scroll-mt-16 border-t border-ink-100 bg-surface py-10">
       <div className="container-page">
